@@ -1,8 +1,12 @@
 import './App.css';
+import React from 'react'
+import LoadPage from "./AllPages";
 
 function App() {
   return (
-   "hvjv"
+      <div>
+        <LoadPage/>
+      </div>
   );
 }
 

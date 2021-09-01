@@ -1,10 +1,8 @@
-import firebase from 'firebase/app'
-import 'firebase/auth'
-import 'firebase/firebase-firestore'
-import 'firebase/firebase-storage';
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/auth'
 
 // import * as admin from 'firebase-admin';
-import 'firebase/firestore';
+import 'firebase/compat/firestore';
 
 
 const firebaseConfig = {
@@ -23,24 +21,13 @@ firebase.initializeApp(firebaseConfig);
 
 export const auth = firebase.auth();
 export const db = firebase.firestore();
-export const storage=firebase.storage();
 export default firebase;
 //export {storage};
 
 
 
-export async function GetFormDownload()
-{
-    const file =  await firebase.storage().refFromURL("gs://rbms-b759b.appspot.com/דוח מדעי.docx").getDownloadURL()
-    return file;
 
 
-}
-export async function GetFormDownloadReportsfinancial()
-{
-    const file =  await firebase.storage().refFromURL("gs://rbms-b759b.appspot.com/דוח כספי.doc").getDownloadURL()
-    return file;
-}
 
 export async function CreateNewUser(email,phone) {
 
@@ -84,46 +71,18 @@ export async function signOut() {
     return
 }
 
-export async function getResearcher(uid) {
-    var researcher = await db.collection("researcher").doc(uid);
-    return researcher;
-}
 
-export async function getResearcherData(uid) {
-    var researcherData = await (await db.collection("researcher").doc(uid).get()).data();
-    return researcherData;
-}
 
-export async function getResearcherFormByDate(uid, date) {
-    var ResearcherData = await (await db.collection("researcher").doc(uid).collection("request").doc(date).get()).data();
-    return ResearcherData;
-}
+
+
+
 
 export async function getPathData(path) {
     var researcherData =await (await db.doc(path).get()).data();
     return researcherData;
 }
 
-export async function getResearcherForms(uid) {
-    var forms = [];
-    var researcherData = await db.collection("researcher").doc(uid).collection("request").get();
-    researcherData.docs.forEach(doc=>{
-        forms.push(doc.data());
-    })
-    return forms;
-}
 
-export async function CreateNewTeam(team) {
-    await  db.collection("Data").doc().set({name:team}).then(()=>{
-            alert("המשתמש נוצר בהצלחה")
-            return true;
-        }
-    ).catch((e)=>{
-        alert("משהו השתבש המשתמש לא נוצר ")
-        return false;
-    })
-
-}
 
 export async function getUser(user) {
     var researcher = await db.collection('researcher').doc(user.uid).get()
@@ -143,12 +102,3 @@ export async function getUser(user) {
 }
 
 
-export async function getManager(uid) {
-    var manager = await db.collection("managers").doc(uid);
-    return manager;
-}
-
-export async function getManagerData(uid) {
-    var managerData = await (await db.collection("managers").doc(uid).get()).data();
-    return managerData;
-}
