@@ -9,4 +9,7 @@
     background-color: #FF0000;
 
 }
-
+#HomeBtn{
+    color: black;
+    background-color: rgba(0, 203, 0, 0.69);
+}

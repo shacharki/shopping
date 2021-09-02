@@ -1,8 +1,8 @@
-import firebase from 'firebase/compat/app'
-import 'firebase/compat/auth'
-
-// import * as admin from 'firebase-admin';
-import 'firebase/compat/firestore';
+import firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/firebase-firestore'
+import 'firebase/firebase-storage';
+import 'firebase/firestore';
 
 
 const firebaseConfig = {
@@ -17,12 +17,12 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-//const storage = firebase.storage();
 
 export const auth = firebase.auth();
 export const db = firebase.firestore();
+export const storage=firebase.storage();
+
 export default firebase;
-//export {storage};
 
 
 
@@ -37,34 +37,11 @@ export async function CreateNewUser(email,phone) {
 
 export async function RegisterUser(uid,user) {
 
-    uid.updateProfile({displayName:user.fname+" "+ user.lname})
-    await db.collection("waitforapproval").doc(uid.uid).set(user);
-    return;
-}
-export async function DeleteUser(uid) {
-    await db.collection("waitforapproval").doc(uid).delete();
+    uid.updateProfile({displayName:user.fname})
+    await db.collection("users").doc(user.uid).set(user)
     return;
 }
 
-export async function CreateUser(user) {
-
-    if(user.type==="testers") {
-        await db.collection("researcher").doc(user.uid).set(user)
-        await db.collection("manager").doc(user.uid).set(user)
-    }
-    await  db.collection(user.type).doc(user.uid).set(user)
-
-    await db.collection("waitforapproval").doc(user.email).delete();
-    await DeleteUser(user.uid)
-    console.log("done the user is ready")
-    return true;
-}
-
-
-export async function checkUser() {
-    const user =await auth.onAuthStateChanged();
-    return user
-}
 
 export async function signOut() {
     await auth.signOut();
