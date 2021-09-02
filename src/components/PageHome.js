@@ -30,28 +30,16 @@ class PageHome extends React.Component {
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <div>
-
                                 <Button
-
                                     type="submit"
-                                    style={{style: {margin: '10px'}}}
                                     fullWidth
                                     variant="contained"
-                                    id="LoginBtn"
-                                    onClick={() => {
-                                        if (this.state.user) {
-                                            this.props.history.push({
-                                                pathname: '/User',
-                                                data: this.state.user // your data array of objects
-                                            })
-                                        } else {
-                                            this.props.history.push({
-                                                pathname: '/Login',
-                                            })
-                                        }
-                                    }}>
-                                    כניסת משתמשים
+                                    id="registerBtn"
+                                    component={Link}
+                                    to="/Login">
+                                    כניסה
                                 </Button>
+
                             </div>
                         </Grid>
                         <Grid item xs={12}>

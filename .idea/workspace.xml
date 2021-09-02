@@ -51,7 +51,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1630492464450</updated>
-      <workItem from="1630492469252" duration="19400000" />
+      <workItem from="1630492469252" duration="24502000" />
     </task>
     <servers />
   </component>
@@ -62,6 +62,10 @@
     <option featureType="com.intellij.fileTypeFactory" implementationName="*.rules" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="1055" y="285" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1630569801031">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1055" y="285" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1630569801031" />
     <state width="1017" height="262" key="GridCell.Tab.0.bottom" timestamp="1630563553599">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
