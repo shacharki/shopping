@@ -31,7 +31,7 @@ class Login extends React.Component {
         try {
             await auth.signInWithEmailAndPassword(this.state.email, this.state.password).then((user) => {
                 this.props.history.push({
-                    pathname: '/Products',
+                    pathname: '/User',
                     data: user.user // your data array of objects
                 })
 

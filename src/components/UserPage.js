@@ -1,9 +1,11 @@
 import React from "react";
-import {auth, getUser} from '../firebase/firebase'
+import {auth,db, getUser} from '../firebase/firebase'
 import {Button} from "@material-ui/core";
-
-
-
+import Grid from "@material-ui/core/Grid";
+import './UserPage.css'
+import { Card, Icon, Image } from 'semantic-ui-react'
+import CardMedia from '@material-ui/core/CardMedia';
+import milk from '../layout/images/milk.jpg';
 
 
 export function BackPage(prop,data)
@@ -34,10 +36,15 @@ class UserPage extends React.Component {
             isLoad:false,
             user: props.location,
             error:false,
+
             loading: true,
+            form: {
+                product: "",
+                price: "",
+                imgUrl:"",
+            }
         };
     }
-
 
     loadPage(event){
         this.setState({loading:event})
@@ -86,25 +93,46 @@ class UserPage extends React.Component {
         if (this.state) {
             return (
                 <div className="sec-design">
+                    {this.userPage()}
+                    <button id="mngRequestPurchase" className="btn btn-info" onClick={() => {
+                        NextPage(this.props, "RequestPurchase", this.state.user)
+                    }}>העגלה שלי<span
+                        className="fa fa-arrow-right"></span></button>
                     {!this.state.user.email ? (null) : (
-                        <div>
-                            {this.userPage()}
+                        <div id="name-group" className="form-group">
+                            <Grid container spacing={2}>
+                                <Grid item xs={12}>
+                                    <Grid container
+                                          direction="row"
+                                          justify="space-between"
+                                          alignItems="center"
+                                          spacing={2}>
 
 
-                            <button onClick={() => this.loadUser("Products")}>Enter Products</button>
+                                                <Grid item xs={12}>
+                                                    {this.Card(this.state.user)}
+                                                </Grid>
 
-                            <button onClick={() => this.loadPage(true)}>loading page</button>
-                            <button onClick={() => this.loadPage(false)}>unloading page</button>
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                color="secondary"
-                                onClick={this.logout}>
-                                התנתק
-                            </Button>
 
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <Button
+                                            type="submit"
+                                            fullWidth
+                                            variant="contained"
+                                            color="secondary"
+                                            onClick={this.logout}>
+                                            התנתק
+                                        </Button>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
                         </div>
+
+
+
+
+
                     )}
                 </div>
             );
@@ -119,6 +147,61 @@ class UserPage extends React.Component {
                 </div>
             }</div>)
     }
+
+
+    async sendProduct(price,products,img) {
+        var path = auth.currentUser.uid
+
+        try {
+            var product = await db.collection("users").doc(path)
+            var newRequestPurchase = await product.collection("prod").doc();
+
+            await newRequestPurchase.set({
+                price: price,
+                product: products,
+                image:img,
+            })
+
+            window.location.reload(true);
+        } catch (error) {
+            this.loadSpinner(false)
+        }
+    }
+    Card(user) {
+        return (
+            <div className="Card"  dir="rtl">
+                <Grid container spacing={1}>
+                    <Grid item xs={12}>
+                        <b>שם מוצר: חלב 3%</b>  <br/>
+                        <b>מחיר: 5 ש"ח</b><br/>
+                        <img
+                            style={{margin: "0 auto", maxHeight: "150px"}}
+                            src={milk} className="img-fluid d-block"/>
+                    </Grid>
+
+
+                    <Grid item xs={6}>
+                        <button id="mngRequestPurchase" className="btn btn-info" onClick={async () => {
+                            this.state.products='שם מוצר: חלב 3%'
+                            this.state.price='מחיר: 5 ש"ח'
+                            this.state.imgUrl="https://drive.google.com/file/d/1vT72F_J_POo0a9DMWdC38Fn-4MtiFbmy/view?usp=sharing"
+                            // this.save();
+                            this.sendProduct(this.state.price,this.state.products,this.state.imgUrl)
+
+                        }}>הוספה לסל
+                        </button>
+
+                    </Grid>
+                    <Grid item xs={6}>
+
+                    </Grid>
+                </Grid>
+
+
+            </div>
+        );
+    }
+
 
     loadUser(page)
     {
