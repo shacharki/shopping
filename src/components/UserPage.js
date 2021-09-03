@@ -6,6 +6,11 @@ import './UserPage.css'
 import { Card, Icon, Image } from 'semantic-ui-react'
 import CardMedia from '@material-ui/core/CardMedia';
 import milk from '../layout/images/milk.jpg';
+import egg from '../layout/images/egg.jpg';
+import bread from '../layout/images/bread.jpg';
+import oil from '../layout/images/oil.jpg';
+import sugar from '../layout/images/sugar.jpg';
+import cheese from '../layout/images/cheese.jpg';
 
 
 export function BackPage(prop,data)
@@ -95,7 +100,7 @@ class UserPage extends React.Component {
                 <div className="sec-design">
                     {this.userPage()}
                     <button id="mngRequestPurchase" className="btn btn-info" onClick={() => {
-                        NextPage(this.props, "RequestPurchase", this.state.user)
+                        NextPage(this.props, "ShoppingCart", this.state.user)
                     }}>העגלה שלי<span
                         className="fa fa-arrow-right"></span></button>
                     {!this.state.user.email ? (null) : (
@@ -110,7 +115,13 @@ class UserPage extends React.Component {
 
 
                                                 <Grid item xs={12}>
-                                                    {this.Card(this.state.user)}
+                                                    {this.CardM(this.state.user)}
+                                                    {this.CardE(this.state.user)}
+                                                    {this.CardB(this.state.user)}
+                                                    {this.CardO(this.state.user)}
+                                                    {this.CardS(this.state.user)}
+                                                    {this.CardC(this.state.user)}
+
                                                 </Grid>
 
 
@@ -149,7 +160,7 @@ class UserPage extends React.Component {
     }
 
 
-    async sendProduct(price,products,img) {
+    async sendProduct(price,products,img,n) {
         var path = auth.currentUser.uid
 
         try {
@@ -160,6 +171,7 @@ class UserPage extends React.Component {
                 price: price,
                 product: products,
                 image:img,
+                num:n,
             })
 
             window.location.reload(true);
@@ -167,7 +179,7 @@ class UserPage extends React.Component {
             this.loadSpinner(false)
         }
     }
-    Card(user) {
+    CardM(user) {
         return (
             <div className="Card"  dir="rtl">
                 <Grid container spacing={1}>
@@ -179,29 +191,154 @@ class UserPage extends React.Component {
                             src={milk} className="img-fluid d-block"/>
                     </Grid>
 
-
                     <Grid item xs={6}>
                         <button id="mngRequestPurchase" className="btn btn-info" onClick={async () => {
                             this.state.products='שם מוצר: חלב 3%'
                             this.state.price='מחיר: 5 ש"ח'
                             this.state.imgUrl="https://drive.google.com/file/d/1vT72F_J_POo0a9DMWdC38Fn-4MtiFbmy/view?usp=sharing"
                             // this.save();
-                            this.sendProduct(this.state.price,this.state.products,this.state.imgUrl)
-
+                            this.sendProduct(this.state.price,this.state.products,this.state.imgUrl,1)
                         }}>הוספה לסל
                         </button>
-
-                    </Grid>
-                    <Grid item xs={6}>
-
                     </Grid>
                 </Grid>
-
-
             </div>
         );
     }
 
+    CardE(user) {
+        return (
+            <div className="Card"  dir="rtl">
+                <Grid container spacing={1}>
+                    <Grid item xs={12}>
+                        <b> שם מוצר: ביצים אורגניות</b>  <br/>
+                        <b>מחיר: 18 ש"ח</b><br/>
+                        <img
+                            style={{margin: "0 auto", maxHeight: "150px"}}
+                            src={egg} className="img-fluid d-block"/>
+                    </Grid>
+
+                    <Grid item xs={6}>
+                        <button id="mngRequestPurchase" className="btn btn-info" onClick={async () => {
+                            this.state.products='שם מוצר: ביצים אורגניות'
+                            this.state.price='מחיר: 18 ש"ח'
+                            this.state.imgUrl="https://drive.google.com/file/d/1I1l2rqDPo1Q5yiTgDmznRjwoIS6gVnAj/view?usp=sharing"
+                            // this.save();
+                            this.sendProduct(this.state.price,this.state.products,this.state.imgUrl,2)
+                        }}>הוספה לסל
+                        </button>
+                    </Grid>
+                </Grid>
+            </div>
+        );
+    }
+    CardB(user) {
+        return (
+            <div className="Card"  dir="rtl">
+                <Grid container spacing={1}>
+                    <Grid item xs={12}>
+                        <b> שם מוצר: לחם פרוס</b>  <br/>
+                        <b>מחיר: 9 ש"ח</b><br/>
+                        <img
+                            style={{margin: "0 auto", maxHeight: "150px"}}
+                            src={bread} className="img-fluid d-block"/>
+                    </Grid>
+
+                    <Grid item xs={6}>
+                        <button id="mngRequestPurchase" className="btn btn-info" onClick={async () => {
+                            this.state.products='שם מוצר: לחם פרוס'
+                            this.state.price='מחיר: 9 ש"ח'
+                            this.state.imgUrl="https://drive.google.com/file/d/1mvVM26CnsQGcpXaHvfXUe6EV-3mDrpKo/view?usp=sharing"
+                            // this.save();
+                            this.sendProduct(this.state.price,this.state.products,this.state.imgUrl,3)
+                        }}>הוספה לסל
+                        </button>
+                    </Grid>
+                </Grid>
+            </div>
+        );
+    }
+
+    CardO(user) {
+        return (
+            <div className="Card"  dir="rtl">
+                <Grid container spacing={1}>
+                    <Grid item xs={12}>
+                        <b> שם מוצר: שמן קנולה</b>  <br/>
+                        <b>מחיר: 7 ש"ח</b><br/>
+                        <img
+                            style={{margin: "0 auto", maxHeight: "150px"}}
+                            src={oil} className="img-fluid d-block"/>
+                    </Grid>
+
+                    <Grid item xs={6}>
+                        <button id="mngRequestPurchase" className="btn btn-info" onClick={async () => {
+                            this.state.products='שם מוצר: שמן קנולה'
+                            this.state.price='מחיר: 7 ש"ח'
+                            this.state.imgUrl="https://drive.google.com/file/d/1fkMhjg6Ee3CrNMpdFCf7i7XnReKVhpUd/view?usp=sharing"
+                            // this.save();
+                            this.sendProduct(this.state.price,this.state.products,this.state.imgUrl,4)
+                        }}>הוספה לסל
+                        </button>
+                    </Grid>
+                </Grid>
+            </div>
+        );
+    }
+
+    CardS(user) {
+        return (
+            <div className="Card"  dir="rtl">
+                <Grid container spacing={1}>
+                    <Grid item xs={12}>
+                        <b> שם מוצר: סוכר לבן</b>  <br/>
+                        <b>מחיר: 5 ש"ח</b><br/>
+                        <img
+                            style={{margin: "0 auto", maxHeight: "150px"}}
+                            src={sugar} className="img-fluid d-block"/>
+                    </Grid>
+
+                    <Grid item xs={6}>
+                        <button id="mngRequestPurchase" className="btn btn-info" onClick={async () => {
+                            this.state.products='שם מוצר: סוכר לבן'
+                            this.state.price='מחיר: 5 ש"ח'
+                            this.state.imgUrl="https://drive.google.com/file/d/1KCo8MqOzQ8b7Hmgoc2cQpAA8aWL3i1Ff/view?usp=sharing"
+                            // this.save();
+                            this.sendProduct(this.state.price,this.state.products,this.state.imgUrl,5)
+                        }}>הוספה לסל
+                        </button>
+                    </Grid>
+                </Grid>
+            </div>
+        );
+    }
+
+    CardC(user) {
+        return (
+            <div className="Card"  dir="rtl">
+                <Grid container spacing={1}>
+                    <Grid item xs={12}>
+                        <b> שם מוצר: גבינה לבנה</b>  <br/>
+                        <b>מחיר: 6 ש"ח</b><br/>
+                        <img
+                            style={{margin: "0 auto", maxHeight: "150px"}}
+                            src={cheese} className="img-fluid d-block"/>
+                    </Grid>
+
+                    <Grid item xs={6}>
+                        <button id="mngRequestPurchase" className="btn btn-info" onClick={async () => {
+                            this.state.products='שם מוצר: גבינה לבנה'
+                            this.state.price='מחיר: 6 ש"ח'
+                            this.state.imgUrl="https://drive.google.com/file/d/1p5Yg1Zp0jwaZ0xTupmRzGuvEgfbPhldB/view?usp=sharing"
+                            // this.save();
+                            this.sendProduct(this.state.price,this.state.products,this.state.imgUrl,6)
+                        }}>הוספה לסל
+                        </button>
+                    </Grid>
+                </Grid>
+            </div>
+        );
+    }
 
     loadUser(page)
     {

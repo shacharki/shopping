@@ -50,7 +50,16 @@ export async function signOut() {
 
 
 
-
+export async function getProduct(uid) {
+    var forms = [];
+    var ProdData = await db.collection("users").doc(uid).collection("prod").get();
+    console.log("ProdData",ProdData)
+    ProdData.docs.forEach(doc=>{
+        forms.push(doc.data());
+    })
+    console.log("forms",forms)
+    return forms;
+}
 
 
 

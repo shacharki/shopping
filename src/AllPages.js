@@ -6,6 +6,7 @@ import SignUp from './components/SignUp';
 import Login from './components/Login';
 import Products from './components/Products';
 import UserPage from './components/UserPage';
+import ShoppingCart from './components/ShoppingCart';
 
 
 
@@ -20,6 +21,7 @@ function LoadPage() {
                     <Route exact path="/Login" component={Login} />
                     <Route exact path="/Products/:id" component={Products} />
                     <Route exact path="/User" component={UserPage} />
+                    <Route exact path="/User/ShoppingCart" component={ShoppingCart} />
 
 
 
