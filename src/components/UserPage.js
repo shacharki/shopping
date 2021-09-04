@@ -3,6 +3,7 @@ import {auth, db, getProduct, getUser} from '../firebase/firebase'
 import {Button} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import './UserPage.css'
+import firebase from 'firebase/app'
 import CardMedia from '@material-ui/core/CardMedia';
 import milk from '../layout/images/milk.jpg';
 import egg from '../layout/images/egg.jpg';
@@ -172,27 +173,40 @@ class UserPage extends React.Component {
 
 
     async sendProduct(price,products,img,photo) {
-        var path = auth.currentUser.uid
+        const currentUserId = auth.currentUser.uid
 
         try {
-            var product = await db.collection("users").doc(path)
-            var newRequestPurchase = await product.collection("prod").doc();
+            const userDoc = await db.collection("users").doc(currentUserId)
 
-            // if(newRequestPurchase.prod.product==products)
-            {
-                console.log("11111111111")
+            const productCollection = await userDoc.collection('prod').get();
+
+            let existingProductDoc = null;
+
+            productCollection.forEach(doc => {
+                if (doc.data().product === products) {
+                    existingProductDoc = doc;
+                }
+            })
+
+            if(existingProductDoc !== null){
+                await userDoc.collection('prod').doc(existingProductDoc.id).update({amount: firebase.firestore.FieldValue.increment(+1)})
+                return;
             }
+
+
+            const newRequestPurchase = await userDoc.collection("prod").doc();
+
+
             await newRequestPurchase.set({
                 price: price,
                 product: products,
                 image:img,
-                sum:1,
+                amount:1,
 
             })
 
-            window.location.reload(true);
         } catch (error) {
-            this.loadSpinner(false)
+            console.log(error)
         }
     }
     CardM(user) {

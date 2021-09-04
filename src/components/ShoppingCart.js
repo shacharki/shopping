@@ -14,6 +14,8 @@ function Card({product}) {
                 <Grid item xs={12}>
                     <b>{product.product}</b>  <br/>
                     <b>{product.price}</b><br/>
+                    <b>{product.amount || 1}</b><br/>
+
                     <img
                         style={{margin: "0 auto", maxHeight: "150px"}}
                         src={product.image} className="img-fluid d-block"/>
