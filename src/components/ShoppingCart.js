@@ -5,7 +5,6 @@ import Grid from "@material-ui/core/Grid";
 import './UserPage.css'
 
 
-import milk from '../layout/images/milk.jpg';
 
 
 
@@ -112,10 +111,7 @@ class ShoppingCart extends React.Component {
             return (
                 <div className="sec-design">
                     {this.userPage()}
-                    {/*<button id="mngRequestPurchase" className="btn btn-info" onClick={() => {*/}
-                    {/*    NextPage(this.props, "ShoppingCart", this.state.user)*/}
-                    {/*}}>העגלה שלי<span*/}
-                    {/*    className="fa fa-arrow-right"></span></button>*/}
+
                     {!this.state.user.email ? (null) : (
                         <div id="name-group" className="form-group">
                             <Grid container spacing={2}>

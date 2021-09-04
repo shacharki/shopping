@@ -1,9 +1,8 @@
 import React from "react";
-import {auth,db, getUser} from '../firebase/firebase'
+import {auth, db, getProduct, getUser} from '../firebase/firebase'
 import {Button} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import './UserPage.css'
-import { Card, Icon, Image } from 'semantic-ui-react'
 import CardMedia from '@material-ui/core/CardMedia';
 import milk from '../layout/images/milk.jpg';
 import egg from '../layout/images/egg.jpg';
@@ -13,6 +12,15 @@ import sugar from '../layout/images/sugar.jpg';
 import cheese from '../layout/images/cheese.jpg';
 
 
+
+
+function Card1({product}) {
+    if (this.state.products==product.product){
+        return 1
+    }
+    return 0;
+
+}
 export function BackPage(prop,data)
 {
     console.log("BackPage_data: "+data)
@@ -41,12 +49,13 @@ class UserPage extends React.Component {
             isLoad:false,
             user: props.location,
             error:false,
-
+            productList: [],
             loading: true,
             form: {
                 product: "",
                 price: "",
                 imgUrl:"",
+                sum:"",
             }
         };
     }
@@ -64,10 +73,12 @@ class UserPage extends React.Component {
 
                 // console.log(user)
                 var type =await getUser(user)
+                const productList = await getProduct(user.uid)
                 await this.setState({
                     isLoad: true,
                     user: user,
-                    type: type
+                    type: type,
+                    productList
                 })
 
 
@@ -160,18 +171,23 @@ class UserPage extends React.Component {
     }
 
 
-    async sendProduct(price,products,img,n) {
+    async sendProduct(price,products,img,photo) {
         var path = auth.currentUser.uid
 
         try {
             var product = await db.collection("users").doc(path)
             var newRequestPurchase = await product.collection("prod").doc();
 
+            // if(newRequestPurchase.prod.product==products)
+            {
+                console.log("11111111111")
+            }
             await newRequestPurchase.set({
                 price: price,
                 product: products,
                 image:img,
-                num:n,
+                sum:1,
+
             })
 
             window.location.reload(true);
@@ -197,7 +213,7 @@ class UserPage extends React.Component {
                             this.state.price='מחיר: 5 ש"ח'
                             this.state.imgUrl="https://drive.google.com/file/d/1vT72F_J_POo0a9DMWdC38Fn-4MtiFbmy/view?usp=sharing"
                             // this.save();
-                            this.sendProduct(this.state.price,this.state.products,this.state.imgUrl,1)
+                            this.sendProduct(this.state.price,this.state.products,this.state.imgUrl,milk)
                         }}>הוספה לסל
                         </button>
                     </Grid>
@@ -224,7 +240,7 @@ class UserPage extends React.Component {
                             this.state.price='מחיר: 18 ש"ח'
                             this.state.imgUrl="https://drive.google.com/file/d/1I1l2rqDPo1Q5yiTgDmznRjwoIS6gVnAj/view?usp=sharing"
                             // this.save();
-                            this.sendProduct(this.state.price,this.state.products,this.state.imgUrl,2)
+                            this.sendProduct(this.state.price,this.state.products,this.state.imgUrl)
                         }}>הוספה לסל
                         </button>
                     </Grid>
@@ -250,7 +266,7 @@ class UserPage extends React.Component {
                             this.state.price='מחיר: 9 ש"ח'
                             this.state.imgUrl="https://drive.google.com/file/d/1mvVM26CnsQGcpXaHvfXUe6EV-3mDrpKo/view?usp=sharing"
                             // this.save();
-                            this.sendProduct(this.state.price,this.state.products,this.state.imgUrl,3)
+                            this.sendProduct(this.state.price,this.state.products,this.state.imgUrl)
                         }}>הוספה לסל
                         </button>
                     </Grid>
@@ -277,7 +293,7 @@ class UserPage extends React.Component {
                             this.state.price='מחיר: 7 ש"ח'
                             this.state.imgUrl="https://drive.google.com/file/d/1fkMhjg6Ee3CrNMpdFCf7i7XnReKVhpUd/view?usp=sharing"
                             // this.save();
-                            this.sendProduct(this.state.price,this.state.products,this.state.imgUrl,4)
+                            this.sendProduct(this.state.price,this.state.products,this.state.imgUrl)
                         }}>הוספה לסל
                         </button>
                     </Grid>
@@ -304,7 +320,7 @@ class UserPage extends React.Component {
                             this.state.price='מחיר: 5 ש"ח'
                             this.state.imgUrl="https://drive.google.com/file/d/1KCo8MqOzQ8b7Hmgoc2cQpAA8aWL3i1Ff/view?usp=sharing"
                             // this.save();
-                            this.sendProduct(this.state.price,this.state.products,this.state.imgUrl,5)
+                            this.sendProduct(this.state.price,this.state.products,this.state.imgUrl)
                         }}>הוספה לסל
                         </button>
                     </Grid>
@@ -331,7 +347,7 @@ class UserPage extends React.Component {
                             this.state.price='מחיר: 6 ש"ח'
                             this.state.imgUrl="https://drive.google.com/file/d/1p5Yg1Zp0jwaZ0xTupmRzGuvEgfbPhldB/view?usp=sharing"
                             // this.save();
-                            this.sendProduct(this.state.price,this.state.products,this.state.imgUrl,6)
+                            this.sendProduct(this.state.price,this.state.products,this.state.imgUrl)
                         }}>הוספה לסל
                         </button>
                     </Grid>
