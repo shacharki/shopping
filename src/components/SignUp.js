@@ -124,7 +124,7 @@ class SignUp extends React.Component {
                                     type="submit"
                                     fullWidth
                                     variant="contained"
-                                    id="registerBtn"
+                                    id="HomeBtn"
                                     onClick={()=>{this.onRegister()}}
                                     register="true">
 
@@ -134,29 +134,14 @@ class SignUp extends React.Component {
                         </Grid>
 
 
+
                         <Grid item xs={12}>
                             <div>
-
                                 <Button
                                     type="submit"
-                                    style={{style: {margin: '10px'}}}
                                     fullWidth
                                     variant="contained"
                                     id="LoginBtn"
-                                    component={Link}
-                                    to="/Login">
-                                    כבר יש לך משתמש? התחברות
-                                </Button>
-                            </div>
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <div>
-                                <Button
-                                    type="submit"
-                                    fullWidth
-                                    variant="contained"
-                                    id="HomeBtn"
                                     component={Link}
                                     to="/">
                                     חזרה לעמוד הראשי

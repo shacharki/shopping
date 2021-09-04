@@ -17,16 +17,11 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-
 export const auth = firebase.auth();
 export const db = firebase.firestore();
 export const storage=firebase.storage();
 
 export default firebase;
-
-
-
-
 
 
 export async function CreateNewUser(email,phone) {
@@ -53,36 +48,26 @@ export async function signOut() {
 export async function getProduct(uid) {
     var forms = [];
     var ProdData = await db.collection("users").doc(uid).collection("prod").get();
-    console.log("ProdData",ProdData)
     ProdData.docs.forEach(doc=>{
         forms.push(doc.data());
     })
-    console.log("forms",forms)
     return forms;
 }
 
 
 
 export async function getPathData(path) {
-    var researcherData =await (await db.doc(path).get()).data();
-    return researcherData;
+    var PathData =await (await db.doc(path).get()).data();
+    return PathData;
 }
 
 
 
 export async function getUser(user) {
-    var researcher = await db.collection('researcher').doc(user.uid).get()
-    var manager = await db.collection('managers').doc(user.uid).get()
-    var wait = await db.collection('waitforapproval').doc(user.uid).get()
+    var user = await db.collection('users').doc(user.uid).get()
 
-    if (wait.exists)
-        return 'wait'
-    else if (manager.exists)
-    {
-        return 'Manager'
-    }
-    else if(researcher.exists)
-        return 'Researcher'
+    if (user.exists)
+        return 'user'
     else
         return null
 }

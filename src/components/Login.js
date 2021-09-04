@@ -22,10 +22,10 @@ class Login extends React.Component {
 
     async Canlogin() {
         if (this.state.email.length <= 0) {
-            return NotificationManager.error("לא הוזן email", "", 1500)
+            alert("לא הוזן email", "", 1500)
         }
         if (this.state.password.length <= 0) {
-            return NotificationManager.error("לא הוזנה סיסמה", "", 1500)
+            alert("לא הוזנה סיסמה", "", 1500)
         }
 
         try {
@@ -36,23 +36,21 @@ class Login extends React.Component {
                 })
 
             }).catch(function (error) {
-                NotificationManager.error("שם משתמש או סיסמה לא נכונים","", 1500)
+                alert("שם משתמש או סיסמה לא נכונים","", 1500)
             });
 
 
         } catch (error) {
-            NotificationManager.error("חלה בעיה")
+            alert("חלה בעיה")
             console.log(error)
         }
     }
-
-
 
     render() {
         return (
             <div id="instructor" className="sec-design" dir='rtl'>
 
-                <div id="instructor_menu" className="form-design" name="student_form">
+                <div id="instructor_menu" className="form-design" name="form">
                     <Grid container spacing={2}>
                         <Grid item xs={5}>
                             <Avatar style={{ style: { background: "black" } }}>
@@ -96,7 +94,7 @@ class Login extends React.Component {
                                 variant="standard"
                                 required
                                 fullWidth
-                                label="סיסמה"
+                                label="סיסמא"
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -105,7 +103,7 @@ class Login extends React.Component {
                                     type="submit"
                                     fullWidth
                                     variant="contained"
-                                    id="LoginBtn"
+                                    id="HomeBtn"
                                     onClick={() => { this.Canlogin() }}>
                                     כניסה
                                 </Button>
@@ -133,7 +131,7 @@ class Login extends React.Component {
                                     type="submit"
                                     fullWidth
                                     variant="contained"
-                                    id="HomeBtn"
+                                    id="LoginBtn"
                                     component={Link}
                                     to="/">
                                     חזרה לעמוד הראשי

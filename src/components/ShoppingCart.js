@@ -5,20 +5,13 @@ import Grid from "@material-ui/core/Grid";
 import './UserPage.css'
 
 
-
-
-
 function Card({product}) {
     return (
         <div className="Card"  dir="rtl">
                 <Grid item xs={12}>
                     <b>{product.product}</b>  <br/>
                     <b>{product.price}</b><br/>
-                    <b>{product.amount || 1}</b><br/>
-
-                    <img
-                        style={{margin: "0 auto", maxHeight: "150px"}}
-                        src={product.image} className="img-fluid d-block"/>
+                    <b>{" כמות: "+product.amount || 1}</b><br/>
                 </Grid>
 
         </div>
@@ -28,8 +21,6 @@ function Card({product}) {
 
 export function BackPage(prop,data)
 {
-    console.log("BackPage_data: "+data)
-
     prop.history.push({
         pathname: `${prop.history.goBack()}`,
         data: data,
@@ -59,14 +50,13 @@ class ShoppingCart extends React.Component {
             form: {
                 product: "",
                 price: "",
-                imgUrl:"",
+                amount:"",
             }
         };
     }
 
     loadPage(event){
         this.setState({loading:event})
-        //    this.render()
     }
 
     async componentDidMount() {
@@ -74,8 +64,6 @@ class ShoppingCart extends React.Component {
 
             if(user)
             {
-
-                // console.log(user)
                 const type =await getUser(user)
                 const productList = await getProduct(user.uid)
                 this.setState({
@@ -84,9 +72,6 @@ class ShoppingCart extends React.Component {
                     type: type,
                     productList
                 })
-
-
-
             }
             else {
                 this.setState({
@@ -113,6 +98,7 @@ class ShoppingCart extends React.Component {
             return (
                 <div className="sec-design">
                     {this.userPage()}
+                    <br/>
 
                     {!this.state.user.email ? (null) : (
                         <div id="name-group" className="form-group">
@@ -123,6 +109,7 @@ class ShoppingCart extends React.Component {
                                           justify="space-between"
                                           alignItems="center"
                                           spacing={2}>
+                                        <br/>
 
                                         <Grid item xs={12}>
                                             {
@@ -131,11 +118,11 @@ class ShoppingCart extends React.Component {
 
                                         </Grid>
 
-
-
                                     </Grid>
+                                    <br/>
+
                                     <Grid item xs={12}>
-                                        <button id="feedback-button" className="btn btn-info" onClick={() => {
+                                        <button id="product" className="btn btn-info" onClick={() => {
                                             this.BackPage()
                                         }}>חזור
                                         </button>
@@ -155,9 +142,6 @@ class ShoppingCart extends React.Component {
                         </div>
 
 
-
-
-
                     )}
                 </div>
             );
@@ -173,11 +157,6 @@ class ShoppingCart extends React.Component {
             }</div>)
     }
 
-
-
-
-
-
     loadUser(page)
     {
         this.props.history.push({
@@ -187,7 +166,6 @@ class ShoppingCart extends React.Component {
         })
     }
 
-
     BackPage()
     {
         this.props.history.push({
@@ -195,7 +173,6 @@ class ShoppingCart extends React.Component {
             data: this.state.user // your data array of objects
         })
     }
-
 
     userPage()
     {

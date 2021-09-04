@@ -26,7 +26,7 @@ class PageHome extends React.Component {
     render() {
         return (
             <div id="instructor" className="sec-design" dir='rtl'>
-                <div id="instructor_menu" className="form-design" name="student_form">
+                <div id="instructor_menu" className="form-design">
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <div>
@@ -34,7 +34,7 @@ class PageHome extends React.Component {
                                     type="submit"
                                     fullWidth
                                     variant="contained"
-                                    id="registerBtn"
+                                    id="AddProduct"
                                     component={Link}
                                     to="/Login">
                                     כניסה
@@ -48,7 +48,7 @@ class PageHome extends React.Component {
                                     type="submit"
                                     fullWidth
                                     variant="contained"
-                                    id="registerBtn"
+                                    id="registerBtn2"
                                     component={Link}
                                     to="/SignUp">
                                     הרשמה

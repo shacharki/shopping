@@ -4,15 +4,13 @@ import {Button} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import './UserPage.css'
 import firebase from 'firebase/app'
-import CardMedia from '@material-ui/core/CardMedia';
+
 import milk from '../layout/images/milk.jpg';
 import egg from '../layout/images/egg.jpg';
 import bread from '../layout/images/bread.jpg';
 import oil from '../layout/images/oil.jpg';
 import sugar from '../layout/images/sugar.jpg';
 import cheese from '../layout/images/cheese.jpg';
-
-
 
 
 
@@ -34,7 +32,6 @@ export function NextPage(prop,path,data)
     })
 }
 
-
 class UserPage extends React.Component {
     constructor(props) {
         super(props);
@@ -49,8 +46,7 @@ class UserPage extends React.Component {
             form: {
                 product: "",
                 price: "",
-                imgUrl:"",
-                sum:"",
+                amount:"",
             }
         };
     }
@@ -65,7 +61,6 @@ class UserPage extends React.Component {
             if(user)
             {
 
-                // console.log(user)
                 var type =await getUser(user)
                 const productList = await getProduct(user.uid)
                 await this.setState({
@@ -74,9 +69,6 @@ class UserPage extends React.Component {
                     type: type,
                     productList
                 })
-
-
-
             }
             else {
                 this.setState({
@@ -104,10 +96,12 @@ class UserPage extends React.Component {
             return (
                 <div className="sec-design1">
                     {this.userPage()}
-                    <button id="mngRequestPurchase" className="btn btn-info" onClick={() => {
+                    <button id="product" className="btn btn-info" onClick={() => {
                         NextPage(this.props, "ShoppingCart", this.state.user)
                     }}>העגלה שלי<span
                         className="fa fa-arrow-right"></span></button>
+                    <br/>
+                    <br/>
                     {!this.state.user.email ? (null) : (
                         <div id="name-group" className="form-group">
                             <Grid container spacing={2}>
@@ -118,7 +112,7 @@ class UserPage extends React.Component {
                                           alignItems="center"
                                           spacing={2}>
 
-
+                                        <br/>
                                         <Grid container spacing={2}>
                                                     <Grid item xs={6}>
                                                         {this.CardM(this.state.user)}
@@ -141,6 +135,7 @@ class UserPage extends React.Component {
                                         </Grid>
 
                                         </Grid>
+                                    <br/>
                                     <Grid item xs={12}>
                                         <Button
                                             type="submit"
@@ -154,11 +149,6 @@ class UserPage extends React.Component {
                                 </Grid>
                             </Grid>
                         </div>
-
-
-
-
-
                     )}
                 </div>
             );
@@ -175,14 +165,12 @@ class UserPage extends React.Component {
     }
 
 
-    async sendProduct(price,products,img,photo) {
+    async sendProduct(price,products) {
         const currentUserId = auth.currentUser.uid
 
         try {
             const userDoc = await db.collection("users").doc(currentUserId)
-
             const productCollection = await userDoc.collection('prod').get();
-
             let existingProductDoc = null;
 
             productCollection.forEach(doc => {
@@ -193,20 +181,18 @@ class UserPage extends React.Component {
 
             if(existingProductDoc !== null){
                 await userDoc.collection('prod').doc(existingProductDoc.id).update({amount: firebase.firestore.FieldValue.increment(+1)})
+                alert("המוצר התווסף לסל")
+
                 return;
             }
-
-
             const newRequestPurchase = await userDoc.collection("prod").doc();
-
-
             await newRequestPurchase.set({
                 price: price,
                 product: products,
-                image:img,
                 amount:1,
 
             })
+            alert("המוצר התווסף לסל")
 
         } catch (error) {
             console.log(error)
@@ -225,12 +211,10 @@ class UserPage extends React.Component {
                     </Grid>
 
                     <Grid item xs={6}>
-                        <button id="mngRequestPurchase" className="btn btn-info" onClick={async () => {
+                        <button id="AddProduct" className="btn btn-info" onClick={async () => {
                             this.state.products='שם מוצר: חלב 3%'
                             this.state.price='מחיר: 5 ש"ח'
-                            this.state.imgUrl="https://drive.google.com/file/d/1vT72F_J_POo0a9DMWdC38Fn-4MtiFbmy/view?usp=sharing"
-                            // this.save();
-                            this.sendProduct(this.state.price,this.state.products,this.state.imgUrl,milk)
+                            this.sendProduct(this.state.price,this.state.products)
                         }}>הוספה לסל
                         </button>
                     </Grid>
@@ -252,12 +236,10 @@ class UserPage extends React.Component {
                     </Grid>
 
                     <Grid item xs={6}>
-                        <button id="mngRequestPurchase" className="btn btn-info" onClick={async () => {
+                        <button id="AddProduct" className="btn btn-info" onClick={async () => {
                             this.state.products='שם מוצר: ביצים אורגניות'
                             this.state.price='מחיר: 18 ש"ח'
-                            this.state.imgUrl="https://drive.google.com/file/d/1I1l2rqDPo1Q5yiTgDmznRjwoIS6gVnAj/view?usp=sharing"
-                            // this.save();
-                            this.sendProduct(this.state.price,this.state.products,this.state.imgUrl)
+                            this.sendProduct(this.state.price,this.state.products)
                         }}>הוספה לסל
                         </button>
                     </Grid>
@@ -278,12 +260,10 @@ class UserPage extends React.Component {
                     </Grid>
 
                     <Grid item xs={6}>
-                        <button id="mngRequestPurchase" className="btn btn-info" onClick={async () => {
+                        <button id="AddProduct" className="btn btn-info" onClick={async () => {
                             this.state.products='שם מוצר: לחם פרוס'
                             this.state.price='מחיר: 9 ש"ח'
-                            this.state.imgUrl="https://drive.google.com/file/d/1mvVM26CnsQGcpXaHvfXUe6EV-3mDrpKo/view?usp=sharing"
-                            // this.save();
-                            this.sendProduct(this.state.price,this.state.products,this.state.imgUrl)
+                            this.sendProduct(this.state.price,this.state.products)
                         }}>הוספה לסל
                         </button>
                     </Grid>
@@ -305,12 +285,10 @@ class UserPage extends React.Component {
                     </Grid>
 
                     <Grid item xs={6}>
-                        <button id="mngRequestPurchase" className="btn btn-info" onClick={async () => {
+                        <button id="AddProduct" className="btn btn-info" onClick={async () => {
                             this.state.products='שם מוצר: שמן קנולה'
                             this.state.price='מחיר: 7 ש"ח'
-                            this.state.imgUrl="https://drive.google.com/file/d/1fkMhjg6Ee3CrNMpdFCf7i7XnReKVhpUd/view?usp=sharing"
-                            // this.save();
-                            this.sendProduct(this.state.price,this.state.products,this.state.imgUrl)
+                            this.sendProduct(this.state.price,this.state.products)
                         }}>הוספה לסל
                         </button>
                     </Grid>
@@ -332,12 +310,10 @@ class UserPage extends React.Component {
                     </Grid>
 
                     <Grid item xs={6}>
-                        <button id="mngRequestPurchase" className="btn btn-info" onClick={async () => {
+                        <button id="AddProduct" className="btn btn-info" onClick={async () => {
                             this.state.products='שם מוצר: סוכר לבן'
                             this.state.price='מחיר: 5 ש"ח'
-                            this.state.imgUrl="https://drive.google.com/file/d/1KCo8MqOzQ8b7Hmgoc2cQpAA8aWL3i1Ff/view?usp=sharing"
-                            // this.save();
-                            this.sendProduct(this.state.price,this.state.products,this.state.imgUrl)
+                            this.sendProduct(this.state.price,this.state.products)
                         }}>הוספה לסל
                         </button>
                     </Grid>
@@ -359,12 +335,10 @@ class UserPage extends React.Component {
                     </Grid>
 
                     <Grid item xs={6}>
-                        <button id="mngRequestPurchase" className="btn btn-info" onClick={async () => {
+                        <button id="AddProduct" className="btn btn-info" onClick={async () => {
                             this.state.products='שם מוצר: גבינה לבנה'
-                            this.state.price='מחיר: 6 ש"ח'
-                            this.state.imgUrl="https://drive.google.com/file/d/1p5Yg1Zp0jwaZ0xTupmRzGuvEgfbPhldB/view?usp=sharing"
-                            // this.save();
-                            this.sendProduct(this.state.price,this.state.products,this.state.imgUrl)
+                            this.state.price='מחיר: 6 ש"ח'// this.save();
+                            this.sendProduct(this.state.price,this.state.products)
                         }}>הוספה לסל
                         </button>
                     </Grid>
@@ -381,9 +355,6 @@ class UserPage extends React.Component {
             data: this.state.user // your data array of objects
         })
     }
-
-
-
 
 
     userPage()
