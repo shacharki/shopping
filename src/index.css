@@ -38,7 +38,7 @@ code {
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 15px;
   padding: 5%;
-  width: 70%;
+  width: 50%;
 }
 
 .sec-design2{
@@ -52,31 +52,6 @@ code {
   width: 50%;
 }
 
-.feedback-design{
-  margin: auto;
-  margin-top: 20%;
-  margin-bottom: 20%;
-  align-items: center;
-  background-color: rgba(255, 255, 255, 0.8);
-  border-radius: 15px;
-  padding: 5%;
-  width: 60%;
-
-}
-
-hr {
-  background-color: #37300f;
-  height: 5px;
-}
-
-#studentList{
-  background-color: azure;
-  text-align: right;
-  display:inline;
-  float: right;
-  width: 90%;
-  padding: 5%;
-}
 
 button{
   width: 100%;
@@ -91,20 +66,7 @@ button{
 button:hover {
   background-color: #B22222;
 }
-/*#logout{*/
-/*  background-color:#ff4d4d;*/
-/*}*/
-/*#logout:hover{*/
-/*  background-color:#ff1a1a;*/
-/*}*/
-#logout{
-  color: whitesmoke;
-  background-color: rgba(203, 146, 133, 0.75);
-}
-#logout:hover{
-  color: whitesmoke;
-  background-color: rgba(203, 146, 133, 0.75);
-}
+
 
 label{
   display: block;
@@ -126,20 +88,4 @@ label{
   overflow: auto;
 }
 
-
-#fr{
-  margin: 0;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 20%;
-  height: 20%;
-  text-align: center;
-  justify-content: center;
-  transform: translate(-50%, -50%);
-  border: 3px solid green;
-  padding: 10px;
-  background-color: azure;
-  z-index: 1000;
-}
 

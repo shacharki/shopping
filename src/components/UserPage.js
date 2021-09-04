@@ -15,13 +15,7 @@ import cheese from '../layout/images/cheese.jpg';
 
 
 
-function Card1({product}) {
-    if (this.state.products==product.product){
-        return 1
-    }
-    return 0;
 
-}
 export function BackPage(prop,data)
 {
     console.log("BackPage_data: "+data)
@@ -63,7 +57,6 @@ class UserPage extends React.Component {
 
     loadPage(event){
         this.setState({loading:event})
-        //    this.render()
     }
 
     async componentDidMount() {
@@ -109,7 +102,7 @@ class UserPage extends React.Component {
 
         if (this.state) {
             return (
-                <div className="sec-design">
+                <div className="sec-design1">
                     {this.userPage()}
                     <button id="mngRequestPurchase" className="btn btn-info" onClick={() => {
                         NextPage(this.props, "ShoppingCart", this.state.user)
@@ -126,18 +119,28 @@ class UserPage extends React.Component {
                                           spacing={2}>
 
 
-                                                <Grid item xs={12}>
-                                                    {this.CardM(this.state.user)}
-                                                    {this.CardE(this.state.user)}
-                                                    {this.CardB(this.state.user)}
-                                                    {this.CardO(this.state.user)}
-                                                    {this.CardS(this.state.user)}
-                                                    {this.CardC(this.state.user)}
+                                        <Grid container spacing={2}>
+                                                    <Grid item xs={6}>
+                                                        {this.CardM(this.state.user)}
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        {this.CardE(this.state.user)}
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        {this.CardB(this.state.user)}
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        {this.CardO(this.state.user)}
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        {this.CardS(this.state.user)}
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        {this.CardC(this.state.user)}
+                                                    </Grid>
+                                        </Grid>
 
-                                                </Grid>
-
-
-                                    </Grid>
+                                        </Grid>
                                     <Grid item xs={12}>
                                         <Button
                                             type="submit"
